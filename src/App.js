@@ -7,7 +7,7 @@ import {
 } from "react-router-dom";
 
 import {LoginPage} from "./pages/Auth/LoginPage";
-import RegisterPage from "./pages/Auth/RegisterPage";
+import {RegisterPage} from "./pages/Auth/RegisterPage";
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -25,7 +25,12 @@ function App() {
       <div className={'maxw1600 m0a'}>
           <ToastContainer />
           <Router>
-              <NavbarHome />
+              {
+                  localStorage.getItem(process.env.REACT_APP_IS_AUTH) === 'true' ?
+                      <NavbarHome />
+                      :
+                      ''
+              }
               <Switch>
                   <Route path={'/'} exact component={HomePage} />
                   <Route path={'/dashboard'} component={Dashboard} />

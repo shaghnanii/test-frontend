@@ -4,6 +4,7 @@ import axios from "axios";
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'
+import {Link} from "react-router-dom";
 
 export const LoginPage = (props) => {
     const [data, setData] = useState({});
@@ -20,24 +21,21 @@ export const LoginPage = (props) => {
             password: data.password,
         };
         axios
-            .post("http://localhost:8000/api/login", payload)
+            .post(`${process.env.REACT_APP_URL}/login`, payload)
             .then(function (response) {
                 if (response.status === 200) {
                     setData((prevState) => ({
                         ...prevState,
                         successMessage: "Login successful. Checking User Role...",
                     }));
-                    // console.log("Token: ", response)
-                    localStorage.setItem("LOGINACCESSTOKEN", response.data.data.authorization.token);
-                    localStorage.setItem("IS_AUTH", true);
+                    localStorage.setItem(process.env.REACT_APP_TOKEN_VARIABLE, response.data.data.authorization.token);
+                    localStorage.setItem(process.env.REACT_APP_IS_AUTH, 'true');
 
-                    const token = localStorage.getItem("LOGINACCESSTOKEN");
-                    // axios get call to check roles of the current logged in user
-                    props.history.push("/dashboard");
+                    window.location = '/dashboard'
+                    // props.history.push("/dashboard");
                 }
             })
             .catch(function (error) {
-                console.log("err respose:: ", error)
                 setErrors([])
                 if (error.response.status === 422) {
                     setErrors(error.response.data.errors)
@@ -101,6 +99,7 @@ export const LoginPage = (props) => {
 
                         <input type="button"  onClick={handleSubmitClick} className="fadeIn fourth mt-4" value="Log In"></input>
                     </form>
+                    <Link to="/register">Goto Register</Link>
                 </div>
             </div>
         </div>

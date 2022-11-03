@@ -18,14 +18,13 @@ export const AddCar = (props) => {
 
     useEffect(() => {
         axios
-            .get("http://localhost:8000/api/categories", {
+            .get(`${process.env.REACT_APP_URL}/categories`, {
                 headers: {
-                    Authorization: `bearer ${localStorage.getItem('LOGINACCESSTOKEN')}`
+                    Authorization: `bearer ${localStorage.getItem(process.env.REACT_APP_TOKEN_VARIABLE)}`
                 }
             })
             .then(function (response) {
                 if (response.status === 200) {
-                    console.log("cateogris: ", response.data.data)
                     setCategories(response.data.data)
                 }
             })
@@ -55,13 +54,14 @@ export const AddCar = (props) => {
             category_id: category
         };
         axios
-            .post("http://localhost:8000/api/cars", payload, {
+            .post(`${process.env.REACT_APP_URL}/cars`, payload, {
                 headers: {
-                    Authorization: `bearer ${localStorage.getItem('LOGINACCESSTOKEN')}`
+                    Authorization: `bearer ${localStorage.getItem(process.env.REACT_APP_TOKEN_VARIABLE)}`
                 }
             })
             .then(function (response) {
                 if (response.status === 200) {
+                    toast.success(response.data.message)
                     props.history.push("/cars");
                 }
             })

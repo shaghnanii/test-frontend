@@ -15,9 +15,9 @@ export const Car = (props) => {
 
     useEffect(() => {
         axios
-            .get("http://localhost:8000/api/cars", {
+            .get(`${process.env.REACT_APP_URL}/cars`, {
                 headers: {
-                    Authorization: `bearer ${localStorage.getItem("LOGINACCESSTOKEN")}`
+                    Authorization: `bearer ${localStorage.getItem(process.env.REACT_APP_TOKEN_VARIABLE)}`
                 }
             })
             .then(function (response) {

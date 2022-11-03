@@ -15,9 +15,9 @@ export const Category = (props) => {
 
     useEffect(() => {
         axios
-            .get("http://localhost:8000/api/categories", {
+            .get(`${process.env.REACT_APP_URL}/categories`, {
                 headers: {
-                    Authorization: `bearer ${localStorage.getItem("LOGINACCESSTOKEN")}`
+                    Authorization: `bearer ${localStorage.getItem(process.env.REACT_APP_TOKEN_VARIABLE)}`
                 }
             })
             .then(function (response) {
