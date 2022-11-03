@@ -4,12 +4,19 @@
 
 Please follow these commands:
 
+### Step 1:
+
 `git clone https://github.com/shaghnanii/test-frontend.git` \
 This will clone the repo to your local machine.
 
+### Step 2:
+Create new `.env` file and copy the data from `.env.example` to your new `.env` file.
+
+### Step 3:
 `npm i (or) npm install`
 This command will install all the required dependencies.
 
+### Step 4:
 `npm start`
 
 This command will run the app in the development mode.\
